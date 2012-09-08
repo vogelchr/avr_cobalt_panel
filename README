@@ -36,3 +36,46 @@ wired up to Vcc and expect to be pulled low with a suitable
 resistor (say 200Ohms - 1kOhm for 5V). Web has the cathode wired
 to ground, Disk has the anode wired to Vcc. Resistors are soldered.
 
+Serial protocol (on an Arduino, this is the USB emulated serial port
+/dev/ttyUSBn):
+
+	By default every character gets sent to the LCD.
+
+	The following ESC sequences are understood:
+
+	ESC 'c'           -> clear and home
+	ESC 'h'           -> home
+	ESC 'p' x y c b   -> goto x y, turn on/off cursor and blink
+			x = '0'..'9' and 'a'..'e'  -> x-position in hex
+			y = '0'..'1'               -> y-position in hex
+			c = '0'..'1'  show(1) or hide(0) cursor
+			b = '0'..'1'  blink(1) or don't blink (0)
+
+	ESC 'u' x p0..p7  -> user-define character
+			x = '0'..'7'  character number in hex
+			p0..p7   character data in BINARY!
+
+			A single 5x7 character looks like:
+
+				p0_bit4 p0_bit3 ... p0_bit0   <--- top
+				p1_bit4 p1_bit3 ... p1_bit0
+				...                   ...
+				p7_bit4 p7_bit3 ... p7_bit0   <--- bottom
+
+	ESC 'l' a b       -> LED, lights up the LEDs corresponding to
+				the mask 0xab where
+			a = '0'..'9','a'..'f' -> high nibble in hex
+			b = '0'..'9','a'..'f' -> low nibble in hex
+
+	ESC '?'           -> inquire, will return the string
+				avr-cobalt-panel\r\n
+
+The keys pressed on the front-panel are returned as:
+
+	Up/Down/Left/Right/S/E -> 'U', 'D', 'L', 'R', 'S', 'E'
+	The sunken button that can only be reached with a *PIN* is
+	returned as the character 'P'.
+
+ 
+
+
