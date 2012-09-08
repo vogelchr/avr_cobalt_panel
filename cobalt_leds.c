@@ -31,7 +31,7 @@ void cobalt_leds_init(){
 }
 
 void cobalt_leds_set(uint8_t leds){
-	leds ^= (COBALT_LED_DISK | COBALT_LED_NET);
+	leds ^= (COBALT_LED_DISK | COBALT_LED_NET | COBALT_LED_LOGO );
 
 	cli();
 	/* Web, Disk, Logo on portb, not inverted */
