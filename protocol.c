@@ -62,7 +62,7 @@ protocol_eat_char(char c)
 {
 	switch(parser_state){
 	case parser_idle:
-		if(c == '\e'){
+		if(c == '\033'){
 			parser_state = parser_esc;
 		} else {
 			hd44780_data(c); /* write out character to LCD */
