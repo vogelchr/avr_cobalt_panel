@@ -31,9 +31,6 @@ void cobalt_leds_init(){
 }
 
 void cobalt_leds_set(uint8_t leds){
-
-	printf("Set LEDs 0x%02hhx.\n",leds);
-
 	leds ^= (COBALT_LED_DISK | COBALT_LED_NET);
 
 	cli();
