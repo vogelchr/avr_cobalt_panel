@@ -1,0 +1,38 @@
+This is a small project to connect a AVR microcontroller
+(e.g. an "Arduino") to the LCD/Button panel of a Cobalt RaQ3.
+
+I own one of these devices on which the mainboard was unfixably
+broken, and I decided to use them as a general purpose case.
+
+Pinout of the 26pin ribbon connector to the frontpanel, with
+proposed connection to an AVR Mega168/Arduino:
+
+--------:-----------:----------------------------:------------:---------
+Button  |LCD/245    |Arduino/AVR          Ard/AVR|LCD         |Button
+--------:-----------:----------------------------:------------:---------
+                            +-----------+
+            '245 \OE PB5(13)| ( 2) ( 1) | PB3(11) LCD_E(p6)
+         LCD_VCC(p2)        | ( 4) ( 3) |         GND
+         LCD_D0(p7)  PC0(A0)| ( 6) ( 5) | PC1(A1) LCD_D1(p8)    B_Pin
+B_Left   LCD_D2(p9)  PC2(A2)| ( 8) ( 7) | PC3(A3) LCD_D3(p10)   B_Up
+B_Down   LCD_D4(p11) PC4(A4)| (10) ( 9) | PC5(A5) LCD_D5(p12)   B_Right
+B_E      LCD_D6(p13) PD6(6) | (12) (11) | PD7(7)  LCD_D7(p14)   B_S
+         LCD_RW(p5)   GND!  | (14) (13) | PB4(12) LCD_RS(p4)
+              n/c           | (16) (15) |         GND
+         Col (Cath)  PD5(5) | (18) (17) | PB0(8)  Web  (LED Anode)
+         Link(Cath)  PD4(4) | (20) (19) | PB1(9)  Disk (LED Cath)
+         100M(Cath)  PD3(3) | (22) (21) |         n/c
+         TxRx(Cath)  PD2(2) | (24) (23) | PB2(10) Logo (NPN base)
+              n/c           | (26) (25) |         n/c
+                            +-----------+
+
+LCD_x are connections to the hd44780-LCD (with pin numbers in
+parentheses). B_x are connections to the buttons. They are put
+on the D1..D7 lines when the \OE pin is low (there's a 74HC245
+on the frontpanel board). LEDs are all wired up differently:
+
+The network LEDs (Col, Link, 100M, TxRx) have their anodes
+wired up to Vcc and expect to be pulled low with a suitable
+resistor (say 200Ohms - 1kOhm for 5V). Web has the cathode wired
+to ground, Disk has the anode wired to Vcc. Resistors are soldered.
+
