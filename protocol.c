@@ -23,7 +23,13 @@
       ESC 'u' x a b c d e f g h  -> define user character at position
                                u (hex nibble 0..7)
 			       with binary characters a .. h 
+
+   *  ? -> Inquire
+      ESC '?' --> Returns 'avr-cobalt-panel\r\n' 
+
 */
+
+prog_char inquire_ret[]="avr-cobalt-panel\r\n";
 
 static uint8_t hex_nibble(char c){
 	if(c >= '0' && c <= '9')
@@ -73,6 +79,9 @@ protocol_eat_char(char c)
 			hd44780_home(c);
 			parser_state = parser_idle;
 			break;
+		case '?' :
+			puts_P(inquire_ret);
+			parser_state = parser_idle;
 		case 'p':
 			parser_eat_n=4;
 			parser_state = parser_feed;
