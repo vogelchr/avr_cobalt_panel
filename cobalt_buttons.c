@@ -80,12 +80,12 @@ cobalt_buttons_get()
 	return ret & COBALT_BUTTONS_ALL;
 }
 
-prog_char button_chars[8]="0PLUDRES";
+const char button_chars[8] PROGMEM = "0PLUDRES";
 
 char
 cobalt_buttons_simple_char(uint8_t buttons){
 	uint8_t k;
-	char * p = button_chars;
+	const char * p = button_chars;
 
 	for(k=0;k<8;k++){
 		if(buttons == (1<<k))

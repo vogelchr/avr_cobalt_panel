@@ -28,8 +28,8 @@ For a copy of the GNU General Public License see http://www.gnu.org/licenses/.
 #include "menu.h"
 #include "protocol.h"
 
-prog_char hello_one[] = "avr-cobalt-panel";
-prog_char hello_two[] = "github/vogelchr";
+const char hello_one[] PROGMEM = "avr-cobalt-panel";
+const char hello_two[] PROGMEM = "github/vogelchr";
 
 int
 main(void)
